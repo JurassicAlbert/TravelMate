@@ -1,0 +1,5 @@
+from .app_user_serializer import AppUserSerializer
+from .travel_location_serializer import TravelLocationSerializer
+from .travel_history_serializer import TravelHistorySerializer
+from .user_preferences_serializer import UserPreferencesSerializer
+from .review_serializer import ReviewSerializer
