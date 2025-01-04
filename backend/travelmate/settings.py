@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,18 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)5%+jg3((v&i!8ye_c81ogf3wq9gi5@wl%3__bf^bjeelsxj@4'
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='unsafe-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Add other configurations
+OPENAI_API_KEY = config('OPENAI_API_KEY')
 
 ALLOWED_HOSTS = []
 
 # Base directory for review_photos files (uploaded by users)
 MEDIA_URL = '/review_photos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'review_photos')
-
-
 
 # Application definition
 
