@@ -1,0 +1,194 @@
+[
+  {
+    "model": "travelmate.appuser",
+    "pk": 1,
+    "fields": {
+      "email": "user1@example.com",
+      "first_name": "John",
+      "last_name": "Doe",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2023-01-01T10:00:00Z",
+      "password": "pbkdf2_sha256$320000$hYB6xkd7$+nKgNN5dcVH3CgDxIqFf8+jAC"
+    }
+  },
+  {
+    "model": "travelmate.appuser",
+    "pk": 2,
+    "fields": {
+      "email": "user2@example.com",
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2023-01-01T12:00:00Z",
+      "password": "pbkdf2_sha256$320000$XjKdZkd8$a7LgM35zfVH3CoLzIqGh8+jDC"
+    }
+  },
+  {
+    "model": "travelmate.appuser",
+    "pk": 3,
+    "fields": {
+      "email": "user3@example.com",
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2023-01-01T15:00:00Z",
+      "password": "pbkdf2_sha256$320000$gJH3Kd90$a7MnLg35tFJ7LoQzIqJh8+zEF"
+    }
+  },
+  {
+    "model": "travelmate.userpreferences",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "prefers_category": "park"
+    }
+  },
+  {
+    "model": "travelmate.userpreferences",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "prefers_category": "historical"
+    }
+  },
+  {
+    "model": "travelmate.userpreferences",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "prefers_category": "museum"
+    }
+  },
+  {
+    "model": "travelmate.travellocation",
+    "pk": 1,
+    "fields": {
+      "name": "Central Park",
+      "description": "A large park in the middle of Manhattan.",
+      "category": "park",
+      "latitude": 40.785091,
+      "longitude": -73.968285
+    }
+  },
+  {
+    "model": "travelmate.travellocation",
+    "pk": 2,
+    "fields": {
+      "name": "Statue of Liberty",
+      "description": "An iconic symbol of freedom in New York City.",
+      "category": "historical",
+      "latitude": 40.689247,
+      "longitude": -74.044502
+    }
+  },
+  {
+    "model": "travelmate.travellocation",
+    "pk": 3,
+    "fields": {
+      "name": "Metropolitan Museum of Art",
+      "description": "One of the world's largest art museums.",
+      "category": "museum",
+      "latitude": 40.779437,
+      "longitude": -73.963244
+    }
+  },
+  {
+    "model": "travelmate.travellocation",
+    "pk": 4,
+    "fields": {
+      "name": "Times Square",
+      "description": "The bustling hub of New York City.",
+      "category": "nightlife",
+      "latitude": 40.758896,
+      "longitude": -73.985130
+    }
+  },
+  {
+    "model": "travelmate.travellocation",
+    "pk": 5,
+    "fields": {
+      "name": "Brooklyn Bridge",
+      "description": "A historic suspension bridge connecting Manhattan and Brooklyn.",
+      "category": "historical",
+      "latitude": 40.706086,
+      "longitude": -73.996864
+    }
+  },
+  {
+    "model": "travelmate.travellocation",
+    "pk": 6,
+    "fields": {
+      "name": "Grand Canyon National Park",
+      "description": "A stunning natural wonder in Arizona.",
+      "category": "nature",
+      "latitude": 36.054444,
+      "longitude": -112.140111
+    }
+  },
+  {
+    "model": "travelmate.review",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "location": 1,
+      "description": "A serene escape in the city.",
+      "rating": 5,
+      "photos": "",
+      "created_at": "2023-01-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "travelmate.review",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "location": 2,
+      "description": "A must-see historical site.",
+      "rating": 4,
+      "photos": "",
+      "created_at": "2023-01-05T11:00:00Z"
+    }
+  },
+  {
+    "model": "travelmate.review",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "location": 3,
+      "description": "An incredible collection of art.",
+      "rating": 5,
+      "photos": "",
+      "created_at": "2023-01-05T12:00:00Z"
+    }
+  },
+  {
+    "model": "travelmate.travelhistory",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "location": 1,
+      "visited_at": "2023-01-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "travelmate.travelhistory",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "location": 2,
+      "visited_at": "2023-01-02T09:00:00Z"
+    }
+  },
+  {
+    "model": "travelmate.travelhistory",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "location": 3,
+      "visited_at": "2023-01-03T09:00:00Z"
+    }
+  }
+]
