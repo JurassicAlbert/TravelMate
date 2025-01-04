@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from .views.app_user_views import UserRegistrationView, UserLoginView, PasswordResetView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views.travel_location_views import TravelLocationViewSet
+from .views.travel_location_views import TravelLocationViewSet, PersonalizedTravelRecommendationView
 from .views.travel_history_views import TravelHistoryViewSet
 from .views.user_preferences_views import UserPreferencesViewSet
 
@@ -21,6 +21,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('password-reset/', PasswordResetView.as_view(), name='password-reset'),
+    path('travel-recommendations/', PersonalizedTravelRecommendationView.as_view(), name='travel_recommendations'),
     path('', include(router.urls)),
 ]
 
