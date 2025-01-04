@@ -26,7 +26,7 @@ TravelMate is built with cutting-edge technologies, combining robust backend log
 3. **Data Integration**:
    - **GPT API**: Generates dynamic content and provides location-based recommendations.
    - **Google Maps API**: Offers map visualization and detailed location data.
-4. **User-centric Data Storage**: A database captures user preferences, favorite spots, and travel history to enable personalized recommendations.
+4. **User-centric Data Storage**: A database in sqlite captures user preferences, favorite spots, and travel history to enable personalized recommendations.
 
 ---
 
@@ -37,10 +37,10 @@ Follow these steps to set up the TravelMate project on your local machine.
 ### Prerequisites
 
 Ensure you have the following installed:
-- Python 3.10+ and Django
+- Python 3.12.7 and Django
 - Node.js and npm
 - A virtual environment tool (e.g., `venv`)
-- Access to GPT API and Google Maps API keys
+- Access to GPT API keys
 
 ---
 
