@@ -1,26 +1,34 @@
 <template>
   <div>
-    <h1>Odwiedzone miejsca</h1>
-    <div v-if="visitedPlaces.length">
-      <PlaceCard v-for="place in visitedPlaces" :key="place.id" :place="place" />
-    </div>
+    <h1>Visited Places</h1>
+    <ul>
+      <li v-for="place in visitedPlaces" :key="place.id">
+        <router-link :to="'/place/' + place.id">{{ place.name }}</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import PlaceCard from '../components/PlaceCard.vue';
 
 export default {
-  components: { PlaceCard },
   data() {
     return {
-      visitedPlaces: [],
+      visitedPlaces: []
     };
   },
   async created() {
-    const response = await axios.get('http://127.0.0.1:8000/api/visited/');
-    this.visitedPlaces = response.data;
-  },
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/travel-history/');
+      this.visitedPlaces = response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };
 </script>
+
+<style scoped>
+/* Stylizowanie widoku odwiedzonych miejsc */
+</style>
