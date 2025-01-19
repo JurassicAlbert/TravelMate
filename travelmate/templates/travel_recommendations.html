@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Gdzie chcesz podróżować?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.query.label_tag }}
+            {{ form.query }}
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Zapytaj</button>
+    </form>
+
+    {% if recommendations %}
+    <div class="mt-4">
+        <h4>Rekomendacje:</h4>
+        <p>{{ recommendations }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

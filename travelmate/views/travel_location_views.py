@@ -4,6 +4,7 @@ from ..models.app_user import AppUser
 from ..models.travel_location import TravelLocation
 from ..models.user_preferences import UserPreferences
 from ..forms.travel_location_form import TravelLocationForm
+from ..forms.travel_location_form import TravelQueryForm
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from decouple import config
@@ -50,9 +51,8 @@ class TravelContext:
         except UserPreferences.DoesNotExist:
             return []
 
-        all_locations = TravelLocation.objects.all()
+        all_locations = list(TravelLocation.objects.all())
 
-        # Poprawka: upewnienie się, że macierz ma odpowiedni wymiar
         user_vector = np.array([
             1 if user_preferences.prefers_category == location.category else 0
             for location in all_locations
@@ -61,10 +61,6 @@ class TravelContext:
         location_vectors = np.array([
             [1 if user_preferences.prefers_category == location.category else 0 for location in all_locations]
         ])
-
-        # Debugowanie wymiarów
-        print(f"user_vector shape: {user_vector.shape}")
-        print(f"location_vectors shape: {location_vectors.shape}")
 
         # Obliczanie podobieństwa kosinusowego
         user_similarity = cosine_similarity(user_vector, location_vectors).flatten()
@@ -77,7 +73,7 @@ class TravelContext:
         )
 
         top_indices = weighted_scores.argsort()[-num_recommendations:][::-1]
-        top_locations = [all_locations[int(index)] for index in top_indices]  # Konwersja na int
+        top_locations = [all_locations[int(index)] for index in top_indices]
 
         return [
             f"{location.name}: {location.description} (Category: {location.category})"
@@ -88,20 +84,19 @@ class PersonalizedTravelRecommendation:
     def recommend(request):
         user = auto_login_user(request)
         openai.api_key = config("OPENAI_API_KEY")
-        top_recommendations = TravelContext.get_top_recommendations(user=user)
-        assistant_context = "\n".join(top_recommendations)
 
+        recommendations = None
         if request.method == 'POST':
-            form = TravelLocationForm(request.POST)
+            form = TravelQueryForm(request.POST)
             if form.is_valid():
-                form.save()
-                user_query = form.cleaned_data.get('name')
+                user_query = form.cleaned_data.get('query')
+
 
                 messages = [
-                    {"role": "system", "content": "You are a travel assistant providing recommendations."},
-                    {"role": "user", "content": f"Based on my preferences, where should I go next? {user_query}"},
-                    {"role": "assistant", "content": assistant_context},
+                    {"role": "system", "content": "Jesteś asystentem podróży, który udziela rekomendacji."},
+                    {"role": "user", "content": f"Gdzie mogę podróżować? {user_query}"},
                 ]
+
                 try:
                     response = openai.ChatCompletion.create(
                         model="gpt-4o-mini",
@@ -110,14 +105,12 @@ class PersonalizedTravelRecommendation:
                     )
                     recommendations = response['choices'][0]['message']['content']
                 except Exception as e:
-                    recommendations = f"Error fetching recommendations: {str(e)}"
-
-                return render(request, 'recommendations.html', {'recommendations': recommendations, 'user': user})
+                    recommendations = f"Błąd podczas pobierania rekomendacji: {str(e)}"
         else:
-            form = TravelLocationForm()
+            form = TravelQueryForm()
 
-        return render(request, 'add_travel_location.html', {
+        return render(request, 'travel_recommendations.html', {
             'form': form,
-            'recommendations': None,
+            'recommendations': recommendations,
             'user': user
         })

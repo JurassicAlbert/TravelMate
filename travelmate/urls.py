@@ -3,8 +3,9 @@ from django.shortcuts import redirect
 from .views.app_user_views import UserView
 from .views.review_views import ReviewView
 from .views.travel_history_views import TravelHistoryView
-from .views.travel_location_views import TravelLocationView, PersonalizedTravelRecommendation
+from .views.travel_location_views import TravelLocationView
 from .views.user_preferences_views import UserPreferencesView
+from .views.travel_location_views import PersonalizedTravelRecommendation
 
 # Function to redirect to the travel recommendations page
 def redirect_to_recommend(request):
@@ -30,9 +31,7 @@ urlpatterns = [
     path('travel-history/add/', TravelHistoryView.add_history, name='add_history'),
     path('travel-history/delete/<int:history_id>/', TravelHistoryView.delete_history, name='delete_history'),
 
-    # Travel locations paths
-    path('travel-locations/', TravelLocationView.location_list, name='location_list'),
-    path('travel-locations/add/', TravelLocationView.add_location, name='add_location'),
+    # Travel recommendations path
     path('travel-recommendations/', PersonalizedTravelRecommendation.recommend, name='recommend'),
 
     # User preferences paths

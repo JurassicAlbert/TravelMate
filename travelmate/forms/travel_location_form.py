@@ -35,3 +35,14 @@ class TravelLocationForm(forms.ModelForm):
         if longitude < -180 or longitude > 180:
             raise forms.ValidationError("Longitude must be between -180 and 180 degrees.")
         return longitude
+
+from django import forms
+
+class TravelQueryForm(forms.Form):
+    """
+    Form for querying travel recommendations.
+    """
+    query = forms.CharField(
+        label="Gdzie chcesz podróżować?",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Wpisz miejsce podróży'})
+    )
