@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Importowanie widoków z katalogu views
-import Login from '../views/Login.vue';  // Widok logowania
+import LoginPage from '../views/LoginPage.vue';  // Widok logowania
 import HomePage from '../views/HomePage.vue';
 import SearchPlaces from '../views/SearchPlaces.vue';
 import PlaceDetails from '../views/PlaceDetails.vue';
@@ -10,15 +10,19 @@ import UserPreferences from '../views/UserPreferences.vue';
 import Register from '../views/Register.vue'; // Nowy widok rejestracji
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomePage
+ {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
   },
   {
-    path: '/login',
-    name: 'login',
-    component: Login  // Widok logowania
+    path: '/home',
+    name: 'HomePage',
+    component: HomePage,
+  },
+  {
+    path: '/',
+    redirect: '/home',  // Przekierowanie na stronę główną
   },
   {
     path: '/register',
@@ -50,7 +54,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 });
 
 export default router;
