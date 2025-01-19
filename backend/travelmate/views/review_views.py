@@ -1,38 +1,47 @@
-from datetime import timedelta
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
-from rest_framework.exceptions import PermissionDenied
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from datetime import timedelta
+from django.core.exceptions import PermissionDenied
+
+from django.contrib.auth.decorators import login_required
+
+from ..forms.review_form import ReviewForm
 from ..models.review import Review
-from ..serializers.review_serializer import ReviewSerializer
 
 
-class ReviewViewSet(ModelViewSet):
-    """
-    ViewSet for handling Review CRUD operations with restrictions.
-    """
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated]
+class ReviewView:
+    @login_required
+    def review_list(request):
+        reviews = Review.objects.all()
+        return render(request, 'reviews.html', {'reviews': reviews})
 
-    def perform_create(self, serializer):
-        """
-        Automatically set the user field to the logged-in user when creating a review.
-        """
-        serializer.save(user=self.request.user)
+    @login_required
+    def add_review(request):
+        if request.method == 'POST':
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.save()
+                return redirect('review_list')
+        else:
+            form = ReviewForm()
+        return render(request, 'add_review.html', {'form': form})
 
-    def update(self, request, *args, **kwargs):
-        """
-        Allow users to update their review only within two weeks of creation.
-        """
-        instance = self.get_object()
-
-        # Check if the logged-in user is the review's author
-        if instance.user != request.user:
+    @login_required
+    def edit_review(request, review_id):
+        review = get_object_or_404(Review, id=review_id)
+        if review.user != request.user:
             raise PermissionDenied("You do not have permission to edit this review.")
 
-        # Check if the review is older than two weeks
-        if now() - instance.created_at > timedelta(weeks=2):
+        if now() - review.created_at > timedelta(weeks=2):
             raise PermissionDenied("You can only edit your review within two weeks of creation.")
 
-        return super().update(request, *args, **kwargs)
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, instance=review)
+            if form.is_valid():
+                form.save()
+                return redirect('review_list')
+        else:
+            form = ReviewForm(instance=review)
+        return render(request, 'edit_review.html', {'form': form})

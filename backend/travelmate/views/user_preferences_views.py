@@ -1,11 +1,17 @@
-from rest_framework.viewsets import ModelViewSet
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from ..forms.user_preferences_form import UserPreferencesForm
 from ..models.user_preferences import UserPreferences
-from ..serializers import UserPreferencesSerializer
 
-
-class UserPreferencesViewSet(ModelViewSet):
-    """
-    ViewSet for performing CRUD operations on UserPreferences.
-    """
-    queryset = UserPreferences.objects.all()
-    serializer_class = UserPreferencesSerializer
+class UserPreferencesView:
+    @login_required
+    def preferences(request):
+        preferences, created = UserPreferences.objects.get_or_create(user=request.user)
+        if request.method == 'POST':
+            form = UserPreferencesForm(request.POST, instance=preferences)
+            if form.is_valid():
+                form.save()
+                return redirect('preferences')
+        else:
+            form = UserPreferencesForm(instance=preferences)
+        return render(request, 'preferences.html', {'form': form})

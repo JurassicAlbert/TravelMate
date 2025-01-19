@@ -9,7 +9,7 @@
       "is_active": true,
       "is_staff": false,
       "date_joined": "2023-01-01T10:00:00Z",
-      "password": "pbkdf2_sha256$320000$hYB6xkd7$+nKgNN5dcVH3CgDxIqFf8+jAC"
+      "password": "password123"
     }
   },
   {
@@ -22,7 +22,7 @@
       "is_active": true,
       "is_staff": false,
       "date_joined": "2023-01-01T12:00:00Z",
-      "password": "pbkdf2_sha256$320000$XjKdZkd8$a7LgM35zfVH3CoLzIqGh8+jDC"
+      "password": "password456"
     }
   },
   {
@@ -35,7 +35,7 @@
       "is_active": true,
       "is_staff": false,
       "date_joined": "2023-01-01T15:00:00Z",
-      "password": "pbkdf2_sha256$320000$gJH3Kd90$a7MnLg35tFJ7LoQzIqJh8+zEF"
+      "password": "password789"
     }
   },
   {
