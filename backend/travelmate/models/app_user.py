@@ -61,7 +61,7 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
     objects = AppUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = []  # Can be empty because we use email as the unique identifier
 
     def __str__(self):
         return self.email

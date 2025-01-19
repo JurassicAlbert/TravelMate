@@ -52,14 +52,14 @@ git clone https://github.com/your-username/travelmate.git
 cd travelmate/backend
 
 # 2. Create a Virtual Environment
-python -m venv env
-source env/bin/activate   # On Windows: `env\Scripts\activate`
+python -m venv .env
+source .env/bin/activate   # On Windows: `.env\Scripts\activate`
 
 # 3. Install Dependencies
 pip install -r requirements.txt
 
 # 4. Set Environment Variables
-# Create a `.env` file in the `backend` directory and add:
+# Create a `..env` file in the `backend` directory and add:
 # GPT_API_KEY=your_gpt_api_key
 # GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 
