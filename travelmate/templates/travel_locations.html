@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista miejsc podróży</h2>
+<ul>
+    {% for location in locations %}
+        <li>{{ location.name }} - {{ location.description }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_location' %}">Dodaj miejsce</a>
+{% endblock %}

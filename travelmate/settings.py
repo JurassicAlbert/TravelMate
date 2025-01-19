@@ -14,6 +14,12 @@ import os
 from pathlib import Path
 from decouple import config
 
+
+LOGIN_URL = '/login/'  # Ustawienie własnej ścieżki logowania
+LOGIN_REDIRECT_URL = '/travel-recommendations/'  # Po zalogowaniu przenosi na stronę rekomendacji
+LOGOUT_REDIRECT_URL = '/login/'  # Po wylogowaniu przenosi z powrotem na stronę logowania
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -68,7 +74,7 @@ ROOT_URLCONF = 'travelmate.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,5 +1,5 @@
 from django import forms
-from backend.travelmate.models.user_preferences import UserPreferences
+from travelmate.models.user_preferences import UserPreferences
 
 class UserPreferencesForm(forms.ModelForm):
     """

@@ -1,5 +1,5 @@
 from django import forms
-from backend.travelmate.models.review import Review
+from travelmate.models.review import Review
 
 
 class ReviewForm(forms.ModelForm):

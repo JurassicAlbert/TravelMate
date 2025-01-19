@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista recenzji</h2>
+<ul>
+    {% for review in reviews %}
+        <li>{{ review.user.first_name }}: {{ review.description }} - Ocena: {{ review.rating }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_review' %}">Dodaj recenzję</a>
+{% endblock %}

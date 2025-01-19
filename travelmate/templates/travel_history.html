@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Historia podróży</h2>
+<ul>
+    {% for item in history %}
+        <li>{{ item.location.name }} - {{ item.visited_at }}</li>
+        <a href="{% url 'delete_history' item.id %}">Usuń</a>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_history' %}">Dodaj podróż</a>
+{% endblock %}

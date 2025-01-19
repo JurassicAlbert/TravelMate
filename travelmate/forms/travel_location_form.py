@@ -1,5 +1,5 @@
 from django import forms
-from backend.travelmate.models.travel_location import TravelLocation
+from travelmate.models.travel_location import TravelLocation
 
 
 class TravelLocationForm(forms.ModelForm):

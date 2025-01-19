@@ -1,5 +1,5 @@
 from django import forms
-from backend.travelmate.models.app_user import AppUser
+from travelmate.models.app_user import AppUser
 
 
 class UserRegistrationForm(forms.ModelForm):

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Witaj, {{ user.first_name }} {{ user.last_name }}</h2>
+<p>Poniżej znajdziesz rekomendowane miejsca podróży:</p>
+
+<ul>
+    {% for location in locations %}
+        <li><strong>{{ location.name }}</strong>: {{ location.description }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'logout' %}">Wyloguj się</a>
+{% endblock %}
