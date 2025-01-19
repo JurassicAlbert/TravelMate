@@ -100,3 +100,5 @@ npm run dev
 - **Seamless User Experience**: Enjoy a fluid interface and cohesive functionality.
 
 Happy traveling with **TravelMate**! 🌍✈️
+
+Authors: Albert Jurasik, Kamil Jelonek, Mateusz Kowalski, Kacper Chadzyjanidis
