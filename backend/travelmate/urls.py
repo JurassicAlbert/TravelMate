@@ -32,12 +32,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', UserRegistrationView.as_view(), name='register'),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('login/', UserLoginView.as_view(), name='login'),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/login/', UserLoginView.as_view(), name='login'),
     path('password-reset/', PasswordResetView.as_view(), name='password-reset'),
     path('travel-recommendations/', PersonalizedTravelRecommendationView.as_view(), name='travel_recommendations'),
     path('', RootAPIView.as_view(), name='root_api'),
     path('', include(router.urls)),
+    path('api/login/', TokenObtainPairView.as_view(), name='login'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 # Serve review_photos files in development

@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from ..models.app_user import AppUser  # Import AppUser from models
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
+from django.contrib.auth.hashers import check_password
 
 from ..serializers import AppUserSerializer
 
@@ -45,17 +46,16 @@ class UserLoginView(APIView):
         if not email or not password:
             return Response({"detail": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Retrieve the user from AppUser model
-        try:
-            user = AppUser.objects.get(email=email)
-        except AppUser.DoesNotExist:
-            return Response({"detail": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+        user = authenticate(request, email=email, password=password)
 
-        # Check password
-        if not user.check_password(password):
-            return Response({"detail": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+        # Ręczne sprawdzanie hasła (opcjonalnie, jeśli authenticate nie działa):
+        if user is None:
+            user = AppUser.objects.filter(email=email).first()
+            if user and check_password(password, user.password):
+                pass
+            else:
+                return Response({"detail": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # Create JWT tokens for authenticated user
         refresh = RefreshToken.for_user(user)
         return Response({
             'refresh': str(refresh),
